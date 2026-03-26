@@ -1,0 +1,207 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--vscode-editor-background);
+  color: var(--vscode-editor-foreground);
+  font-family: var(--vscode-font-family);
+  font-size: var(--vscode-font-size, 13px);
+  overflow: auto;
+}
+
+/* ── Toolbar ── */
+#toolbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  padding: 8px 16px;
+  background: var(--vscode-editorGroupHeader-tabsBackground);
+  border-bottom: 1px solid var(--vscode-panel-border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#refreshBtn {
+  padding: 4px 12px;
+  background: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 13px;
+}
+#refreshBtn:hover {
+  background: var(--vscode-button-hoverBackground);
+}
+
+#pipeline-title {
+  font-size: 13px;
+  color: var(--vscode-descriptionForeground);
+}
+
+/* ── Canvas ── */
+#canvas-container {
+  position: relative;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+#connections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+/* ── SVG lines ── */
+.dep-line {
+  fill: none;
+  stroke: var(--vscode-descriptionForeground, #888);
+  stroke-width: 1.5;
+  opacity: 0.3;
+  transition: stroke 0.2s, opacity 0.2s, stroke-width 0.2s;
+}
+
+.dep-arrow {
+  fill: var(--vscode-descriptionForeground, #888);
+  opacity: 0.3;
+  transition: fill 0.2s, opacity 0.2s;
+}
+
+/* Highlighted edges */
+.dep-line.hl {
+  stroke: #ff1493;
+  stroke-width: 3;
+  opacity: 1;
+}
+
+.dep-arrow.hl {
+  fill: #ff1493;
+  opacity: 1;
+}
+
+/* ── Asset node (data) ── */
+.asset-node {
+  position: absolute;
+  background: var(--vscode-editorWidget-background);
+  border: 1.5px solid var(--vscode-charts-blue, #5a9fd4);
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: box-shadow 0.2s, border-color 0.2s, opacity 0.2s;
+}
+
+.asset-node:hover {
+  box-shadow: 0 2px 12px rgba(90, 159, 212, 0.25);
+  border-color: var(--vscode-focusBorder);
+}
+
+/* Source data: green dashed */
+.asset-node.source {
+  border-color: var(--vscode-charts-green, #89d185);
+  border-style: dashed;
+}
+.asset-node.source:hover {
+  box-shadow: 0 2px 12px rgba(137, 209, 133, 0.25);
+}
+
+/* Highlighted asset */
+.asset-node.hl {
+  border-color: #ff1493 !important;
+  border-width: 2px !important;
+  border-style: solid !important;
+  box-shadow: none;
+}
+
+.asset-label {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--vscode-editor-foreground);
+  margin-bottom: 3px;
+}
+
+.asset-desc {
+  font-size: 12px;
+  color: var(--vscode-descriptionForeground);
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+.asset-path {
+  display: block;
+  font-size: 12px;
+  font-family: var(--vscode-editor-font-family, monospace);
+  color: var(--vscode-textLink-foreground);
+  text-decoration: none;
+  word-break: break-all;
+  cursor: pointer;
+}
+.asset-path:hover {
+  text-decoration: underline;
+}
+
+/* ── Script node — teal accent ── */
+.script-node {
+  position: absolute;
+  background: rgba(77, 182, 172, 0.08);
+  border: 1.5px solid #4db6ac;
+  border-radius: 20px;
+  padding: 6px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+  transition: box-shadow 0.2s, border-color 0.2s, opacity 0.2s;
+}
+
+.script-node:hover {
+  box-shadow: 0 2px 10px rgba(77, 182, 172, 0.3);
+  border-color: var(--vscode-focusBorder);
+}
+
+/* Highlighted script */
+.script-node.hl {
+  border-color: #ff1493 !important;
+  border-width: 2px !important;
+  box-shadow: none;
+}
+
+.script-label {
+  font-size: 13px;
+  font-family: var(--vscode-editor-font-family, monospace);
+  color: #4db6ac;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.script-label:hover {
+  text-decoration: underline;
+}
+
+.script-run-btn {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  background: #4db6ac;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.15s;
+}
+
+.script-run-btn:hover {
+  opacity: 0.8;
+}
