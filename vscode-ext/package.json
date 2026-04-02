@@ -1,8 +1,8 @@
 {
-  "name": "pipeline-visualizer",
-  "displayName": "Pipeline Visualizer",
-  "description": "Visualize .pipline YAML files as horizontal tree diagrams",
-  "version": "0.1.5",
+  "name": "pypipeline-visualizer",
+  "displayName": "PyPipeline Visualizer",
+  "description": "Visualize .pypipeline YAML files as horizontal tree diagrams",
+  "version": "0.2.0",
   "publisher": "local",
   "engines": {
     "vscode": "^1.80.0"
@@ -29,14 +29,14 @@
     "menus": {
       "explorer/context": [
         {
-          "when": "resourceExtname == .pipline",
+          "when": "resourceExtname == .pypipeline",
           "command": "pipeline.openActive",
           "group": "navigation"
         }
       ],
       "editor/context": [
         {
-          "when": "resourceExtname == .pipline",
+          "when": "resourceExtname == .pypipeline",
           "command": "pipeline.openActive",
           "group": "navigation"
         }

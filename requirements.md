@@ -2,9 +2,9 @@
 
 ## 功能概述
 
-读取 `.pipline` (YAML) 配置文件，在 VS Code Webview 中以**自上而下的 DAG 图**可视化展示数据处理流水线，支持点击执行脚本、打开文件、高亮追溯依赖链。
+读取 `.pypipeline` (YAML) 配置文件，在 VS Code Webview 中以**自上而下的 DAG 图**可视化展示数据处理流水线，支持点击执行脚本、打开文件、高亮追溯依赖链。
 
-## .pipline 配置格式
+## .pypipeline 配置格式
 
 ```yaml
 name: pipeline_name
@@ -37,8 +37,8 @@ assets:
 | **点击执行脚本** | 点击脚本节点的 ▶ 按钮，在终端中执行 `python3 <script>`；复用已有终端，自动激活 venv |
 | **点击高亮（资产）** | 点击数据资产，递归回溯全部上游链路（脚本+输入资产）直到源数据，全部高亮（洋红色） |
 | **点击高亮（脚本）** | 点击脚本节点，高亮其输入资产 + 输出资产 + 连接箭头 |
-| **刷新** | 点击刷新按钮重新读取 `.pipline` 文件并重绘画布 |
-| **右键菜单** | `.pipline` 文件的资源管理器和编辑器右键菜单中有 "Pipeline: Open Pipeline View" |
+| **刷新** | 点击刷新按钮重新读取 `.pypipeline` 文件并重绘画布 |
+| **右键菜单** | `.pypipeline` 文件的资源管理器和编辑器右键菜单中有 "Pipeline: Open Pipeline View" |
 
 ## 项目结构
 

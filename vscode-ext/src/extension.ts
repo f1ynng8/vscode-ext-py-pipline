@@ -2,12 +2,12 @@ import * as vscode from 'vscode';
 import { PipelinePanel } from './webviewProvider';
 
 export function activate(context: vscode.ExtensionContext) {
-  // Command: pick a .pipline file via dialog
+  // Command: pick a .pypipeline file via dialog
   context.subscriptions.push(
     vscode.commands.registerCommand('pipeline.open', async () => {
       const files = await vscode.window.showOpenDialog({
         canSelectMany: false,
-        filters: { 'Pipeline files': ['pipline'] },
+        filters: { 'Pipeline files': ['pypipeline'] },
         openLabel: 'Open Pipeline',
       });
       if (files && files.length > 0) {
@@ -16,12 +16,12 @@ export function activate(context: vscode.ExtensionContext) {
     })
   );
 
-  // Command: open current active .pipline file, or from explorer context menu
+  // Command: open current active .pypipeline file, or from explorer context menu
   context.subscriptions.push(
     vscode.commands.registerCommand('pipeline.openActive', (uri?: vscode.Uri) => {
       const filePath = uri?.fsPath ?? vscode.window.activeTextEditor?.document.uri.fsPath;
-      if (!filePath || !filePath.endsWith('.pipline')) {
-        vscode.window.showErrorMessage('No .pipline file selected or active.');
+      if (!filePath || !filePath.endsWith('.pypipeline')) {
+        vscode.window.showErrorMessage('No .pypipeline file selected or active.');
         return;
       }
       new PipelinePanel(context.extensionUri, filePath);
