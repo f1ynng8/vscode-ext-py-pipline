@@ -1,0 +1,72 @@
+name: data_etl_pipeline
+description: "示例 ETL 流水线：从原始数据经过清洗、特征工程到最终模型训练"
+
+globals:
+  work_dir: "/opt/app/data/etl_project"
+  python_venv: "/opt/app/data/etl_project/.venv"
+
+assets:
+  # ── 源数据（无 generated_by，自动识别为 source_data） ──
+  raw_sales:
+    path: raw/sales_2025.csv
+    type: source_data
+    desc: "销售原始数据"
+
+  raw_customers:
+    path: raw/customers.csv
+    type: source_data
+    desc: "客户信息表"
+
+  # ── 第一阶段：数据清洗 ──
+  cleaned_sales:
+    path: intermediate/cleaned_sales.csv
+    desc: "清洗后的销售数据（去重、补空值）"
+    generated_by:
+      script: code/clean_sales.py
+      inputs:
+        - raw_sales
+
+  cleaned_customers:
+    path: intermediate/cleaned_customers.csv
+    desc: "清洗后的客户数据（格式标准化）"
+    generated_by:
+      script: code/clean_customers.py
+      inputs:
+        - raw_customers
+
+  # ── 第二阶段：合并 + 特征工程 ──
+  merged_data:
+    path: intermediate/merged.parquet
+    desc: "销售与客户数据按 customer_id 合并"
+    generated_by:
+      script: code/merge_data.py
+      inputs:
+        - cleaned_sales
+        - cleaned_customers
+
+  features:
+    path: intermediate/features.parquet
+    desc: "特征工程：RFM 指标、消费趋势等"
+    generated_by:
+      script: code/feature_engineering.py
+      inputs:
+        - merged_data
+
+  # ── 第三阶段：模型训练 ──
+  model_artifact:
+    path: output/model.pkl
+    desc: "训练好的分类模型"
+    generated_by:
+      script: code/train_model.py
+      inputs:
+        - features
+
+  # ── 第四阶段：评估报告 ──
+  evaluation_report:
+    path: output/report.html
+    desc: "模型评估报告（准确率、混淆矩阵等）"
+    generated_by:
+      script: code/evaluate.py
+      inputs:
+        - model_artifact
+        - features
